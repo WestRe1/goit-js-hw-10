@@ -35,14 +35,13 @@ function onInput(evt) {
 }
 
 function twoCreateMarkup(arr) {
-  return arr.map(
-    ({ name: { official }, flags: { svg } }) =>
-      ` <li>
-    <img class="country-list-img" src="${svg}" alt="${official}">
-    <p class="country-list-text">${official}</p>
-    
-</li>`
-  );
+  return arr
+    .map(({ name: { common }, flags: { svg } }) => {
+      return `<li class="country-list-item">
+    <img class="country-list-img" src="${svg}" alt="${common}">
+    <p class="country-list-text">${common}</p></li>`;
+    })
+    .join('');
 }
 
 function oneCreateMarkup(arr) {
@@ -54,15 +53,16 @@ function oneCreateMarkup(arr) {
       languages,
       flags: { svg },
     }) => {
-      const languagesString = Object.values(languages).join(',');
-      const capitalInfo = `Capital:${capital}`;
-      const populationInfo = `Population:${population}`;
-      const languagesInfo = `Languages: ${languagesString}`;
-      return `<li>
+      const languagesString = Object.values(languages).join(', ');
+
+      return `<li class="country-info-item">
+    <div class="container">
     <img class="country-info-img" src="${svg}" alt="${official}">
-    <span class="country_info-text">${capitalInfo}</span>
-    <span class="country_info-text">${populationInfo}</span>
-    <span class="country_info-text">${languagesInfo}</span>
+    <h1 class="country_info-title">${official}</h1>
+    </div>
+    <p><span class="country_info-text">Capital:</span>${capital}</p>
+    <p><span class="country_info-text">Population:</span>${population}</p>
+    <p><span class="country_info-text">Languages:</span>${languagesString}</p>
 </li>`;
     }
   );
